@@ -14,6 +14,7 @@ import os
 def summarry(history,fileName,denseLayerPerms): #code found online for displaying a graph of my accuracy
     pyplot.plot(history.history['accuracy'])
     pyplot.plot(history.history['val_accuracy'])
+    #I still need to look up what 'val accuracy ' is, I just saw it was stored in the 'history' while the neural network was training
     pyplot.title(f'model accuracy for{denseLayerPerms}')
     pyplot.ylabel('accuracy')
     pyplot.xlabel('epoch')
@@ -58,7 +59,7 @@ def model_(trainX,learningRate,dropoutRate,listOfDenseLayerSizes):
 
 
 
-
+ 
     model.add(Conv2D(64,(3,3),input_shape=trainX.shape[1:]))
     model.add(Activation("relu"))
     model.add(MaxPooling2D(pool_size=(2,2)))
@@ -99,7 +100,7 @@ def model_(trainX,learningRate,dropoutRate,listOfDenseLayerSizes):
 
 def main():
 
-
+    #input information, not all of it is used at the moment. This is more for my convenience.
     epochs,batchSize,learningRate,momentum,dropoutRate,modelName,= int(input('Amt of Epochs: ')),int(input('Batch Size:')), float(input("learningRate")),float(input("momentum")),float(input("Dropout Rate (0 if you dont want any):")),input("Model Name:")
     print(f'{epochs}\n{batchSize}\n{learningRate}\n{momentum}\n{dropoutRate}\n{modelName}\n')
     trainX,trainY_encoded,testX,testY_encoded = loadData()
@@ -111,6 +112,7 @@ def main():
 
     listOfDenseLayerSizes = [64,128,256,512]
     listOfDenseLayerSizes=list(permutations(listOfDenseLayerSizes,3))
+
     for i in listOfDenseLayerSizes:
         #set up file directory for models
         directory=f'{i[0]}_{i[1]}_{i[2]}'
